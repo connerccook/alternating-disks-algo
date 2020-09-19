@@ -3,6 +3,6 @@ Alternating disks
 
 Group members:
 
-Ada Lovelace adalovelace@csu.fullerton.edu
+Conner Cook connerccook@csu.fullerton.edu
 
-Charles Babbage charlesbab@csu.fullerton.edu
+Peter Le put ur email -> @csu.fullerton.edu
