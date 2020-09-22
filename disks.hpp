@@ -94,27 +94,23 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_initialized() const {
-    for (size_t i = 0; i <_colors.size(); i+=2)
-    {
-      if((_colors[i] != DISK_LIGHT) && _colors[i+1] != DISK_DARK)
-        {return false;}
+    for (size_t i = 0; i <_colors.size(); i+=2) {
+      if((_colors[i] != DISK_LIGHT) && _colors[i+1] != DISK_DARK){
+        return false;
+      }
     }
     return true;
-    // TODO: Write code for this function, including rewriting the return
-    // statement, and then delete these comments.
   }
 
   // Return true when this disk_state is fully sorted, with all dark disks
   // on the left (low indices) and all light disks on the right (high
   // indices).
   bool is_sorted() const {
-    for (size_t i = 0; i < (_colors.size())/2; i++)
-    {
-      if (_colors[i] == DISK_LIGHT)
-      {return false;}
+    for (size_t i = 0; i < (_colors.size())/2; i++) {
+      if (_colors[i] == DISK_LIGHT) {
+        return false;
+      }
     }
-    // TODO: Write code for this function, including rewriting the return
-    // statement, and then delete these comments.
     return true;
   }
 };
@@ -156,5 +152,23 @@ sorted_disks sort_alternate(const disk_state& before) {
 sorted_disks sort_lawnmower(const disk_state& before) {
   // TODO: Write code for this function, including rewriting the return
   // statement, and then delete these comments.
+  int counter = 0;
+  while (before.is_sorted() == false) {
+    if (counter % 2 == 0) {
+      for (int i = 0; i < before.total_count(); i++) {
+        if (before.get(i) == DISK_LIGHT && before.get(i+1) == DISK_DARK) {
+          before.swap(i);
+        }
+      }
+      counter++;
+    } else {
+      for (int i = before.total_count() - 1; i >= 0 ; i--){
+        if (before.get(i-1) == DISK_LIGHT && before.get(i) == DISK_DARK){
+          before.swap(i-1);
+        }
+      }
+      counter++;
+    } 
+  }
   return sorted_disks(before, 0);
 }
