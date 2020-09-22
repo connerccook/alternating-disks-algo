@@ -94,10 +94,12 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_initialized() const {
-    if((_colors[0] == DISK_LIGHT) && _colors[1] == DISK_DARK)
-    {return true;}
-
-    return false;
+    for (size_t i = 0; i <_colors.size(); i+=2)
+    {
+      if((_colors[i] != DISK_LIGHT) && _colors[i+1] != DISK_DARK)
+        {return false;}
+    }
+    return true;
     // TODO: Write code for this function, including rewriting the return
     // statement, and then delete these comments.
   }
