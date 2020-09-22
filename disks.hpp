@@ -94,17 +94,26 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_initialized() const {
+    if((_colors[0] == DISK_LIGHT) && _colors[1] == DISK_DARK)
+    {return true;}
+
+    return false;
     // TODO: Write code for this function, including rewriting the return
-    // statement, and then delete these comments.  
+    // statement, and then delete these comments.
   }
 
   // Return true when this disk_state is fully sorted, with all dark disks
   // on the left (low indices) and all light disks on the right (high
   // indices).
   bool is_sorted() const {
+    for (size_t i = 0; i < (_colors.size())/2; i++)
+    {
+      if (_colors[i] == DISK_LIGHT)
+      {return false;}
+    }
     // TODO: Write code for this function, including rewriting the return
     // statement, and then delete these comments.
-    return false;  
+    return true;
   }
 };
 
@@ -115,19 +124,19 @@ class sorted_disks {
 private:
   disk_state _after;
   unsigned _swap_count;
-  
+
 public:
-  
+
   sorted_disks(const disk_state& after, unsigned swap_count)
     : _after(after), _swap_count(swap_count) { }
-  
+
   sorted_disks(disk_state&& after, unsigned swap_count)
     : _after(after), _swap_count(swap_count) { }
-  
+
   const disk_state& after() const {
     return _after;
   }
-  
+
   unsigned swap_count() const {
     return _swap_count;
   }
@@ -147,4 +156,3 @@ sorted_disks sort_lawnmower(const disk_state& before) {
   // statement, and then delete these comments.
   return sorted_disks(before, 0);
 }
-  
