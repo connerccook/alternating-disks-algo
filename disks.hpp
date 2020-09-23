@@ -94,7 +94,7 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_initialized() const {
-    for (size_t i = 0; i <_colors.size()-1; i+=2) {
+    for (size_t i = 0; i <_colors.size(); i+=2) {
       if((_colors[i] != DISK_LIGHT) && _colors[i+1] != DISK_DARK){
         return false;
       }
@@ -151,8 +151,6 @@ sorted_disks sort_alternate(const disk_state& before) {
 
 // Algorithm that sorts disks using the lawnmower algorithm.
 sorted_disks sort_lawnmower(const disk_state& before) {
-  // TODO: Write code for this function, including rewriting the return
-  // statement, and then delete these comments.
   disk_state after = before;
   int counter = 0;
   unsigned swap_counter = 0;
