@@ -144,8 +144,20 @@ public:
 sorted_disks sort_alternate(const disk_state& before) {
   // TODO: Write code for this function, including rewriting the return
   // statement, and then delete these comments.
-  
-  return sorted_disks(before, 0);
+  disk_state a = before;
+  unsigned swap_counter = 0;
+  while(a.is_sorted() == false)
+  {
+  for (size_t i = 0; i< a.total_count()-1; i++)
+    {
+      if (a.get(i) == DISK_LIGHT && a.get(i+1) == DISK_DARK)
+      {
+        a.swap(i);
+        swap_counter++;
+      }
+    }
+  }
+  return sorted_disks(a, swap_counter);
 }
 
 
@@ -173,7 +185,7 @@ sorted_disks sort_lawnmower(const disk_state& before) {
         }
       }
       counter++;
-    } 
+    }
   }
   //before = after;
   return sorted_disks(after, swap_counter);
