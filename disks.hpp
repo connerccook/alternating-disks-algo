@@ -22,7 +22,7 @@
 #include <functional>
 #include <iostream>
 
-enum disk_color { DISK_DARK, DISK_LIGHT};
+enum disk_color {DISK_DARK, DISK_LIGHT};
 
 class disk_state {
 private:
@@ -94,7 +94,7 @@ public:
   // that the first disk at index 0 is light, the second disk at index 1
   // is dark, and so on for the entire row of disks.
   bool is_initialized() const {
-    for (size_t i = 0; i <_colors.size(); i+=2) {
+    for (size_t i = 0; i <_colors.size()-1; i+=2) {
       if((_colors[i] != DISK_LIGHT) && _colors[i+1] != DISK_DARK){
         return false;
       }
@@ -144,6 +144,7 @@ public:
 sorted_disks sort_alternate(const disk_state& before) {
   // TODO: Write code for this function, including rewriting the return
   // statement, and then delete these comments.
+  
   return sorted_disks(before, 0);
 }
 
@@ -152,23 +153,28 @@ sorted_disks sort_alternate(const disk_state& before) {
 sorted_disks sort_lawnmower(const disk_state& before) {
   // TODO: Write code for this function, including rewriting the return
   // statement, and then delete these comments.
+  disk_state after = before;
   int counter = 0;
-  while (before.is_sorted() == false) {
+  unsigned swap_counter = 0;
+  while (after.is_sorted() == false) {
     if (counter % 2 == 0) {
-      for (int i = 0; i < before.total_count(); i++) {
-        if (before.get(i) == DISK_LIGHT && before.get(i+1) == DISK_DARK) {
-          before.swap(i);
+      for (size_t i = 0; i < after.total_count()-1; i++) {
+        if (after.get(i) == DISK_LIGHT && after.get(i+1) == DISK_DARK) {
+          after.swap(i);
+          swap_counter++;
         }
       }
       counter++;
     } else {
-      for (int i = before.total_count() - 1; i >= 0 ; i--){
-        if (before.get(i-1) == DISK_LIGHT && before.get(i) == DISK_DARK){
-          before.swap(i-1);
+      for (size_t i = after.total_count() - 1; i > 0 ; i--){
+        if (after.get(i-1) == DISK_LIGHT && after.get(i) == DISK_DARK){
+          after.swap(i-1);
+          swap_counter++;
         }
       }
       counter++;
     } 
   }
-  return sorted_disks(before, 0);
+  //before = after;
+  return sorted_disks(after, swap_counter);
 }
