@@ -162,18 +162,18 @@ sorted_disks sort_alternate(const disk_state& before) {
 // Algorithm that sorts disks using the lawnmower algorithm.
 sorted_disks sort_lawnmower(const disk_state& before) {
   disk_state after = before;
-  int counter = 0;
-  unsigned swap_counter = 0;
-  while (after.is_sorted() == false) {
-    if (counter % 2 == 0) {
+  int counter = 0; //counter tracks the number of times it went left to right and right to left
+  unsigned swap_counter = 0; //counts number of swaps
+  while (after.is_sorted() == false) {  //if it is not sorted then keep looping
+    if (counter % 2 == 0) { // if counter == 0 then it means that the lawnmower is going right
       for (size_t i = 0; i < after.total_count()-1; i++) {
-        if (after.get(i) == DISK_LIGHT && after.get(i+1) == DISK_DARK) {
+        if (after.get(i) == DISK_LIGHT && after.get(i+1) == DISK_DARK) { //if left is light and right is dark then swap, else do nothing
           after.swap(i);
           swap_counter++;
         }
       }
       counter++;
-    } else {
+    } else { // if counter is not equal 0 then the lawnmower is going left
       for (size_t i = after.total_count() - 1; i > 0 ; i--){
         if (after.get(i-1) == DISK_LIGHT && after.get(i) == DISK_DARK){
           after.swap(i-1);
@@ -183,6 +183,5 @@ sorted_disks sort_lawnmower(const disk_state& before) {
       counter++;
     }
   }
-  //before = after;
   return sorted_disks(after, swap_counter);
 }
