@@ -144,12 +144,9 @@ public:
 sorted_disks sort_alternate(const disk_state& before) {
   disk_state a = before;
   unsigned swap_counter = 0;
-  while(a.is_sorted() == false)
-  {
-  for (size_t i = 0; i< a.total_count()-1; i++)
-    {
-      if (a.get(i) == DISK_LIGHT && a.get(i+1) == DISK_DARK)
-      {
+  while(a.is_sorted() == false){
+    for (size_t i = 0; i< a.total_count()-1; i++){
+      if (a.get(i) == DISK_LIGHT && a.get(i+1) == DISK_DARK){
         a.swap(i);
         swap_counter++;
       }
